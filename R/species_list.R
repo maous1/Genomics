@@ -1,14 +1,13 @@
 #' Title
 #'
 #'
-#' @import Biostrings
+#' @import Biostrings dplyr
 #' @return
 #' @export
 #'
 #' @examples
 species_list <- function(path)
 {
-  library(dplyr)
   sequences <- readDNAStringSet(path)
   nom = names(sequences)
   data = data.frame(nom)
