@@ -9,6 +9,7 @@
 #' @examples
 select_gene <- function(species,path)
 {
+  dir.create(paste0("virulence_",species))
   sequences <- readDNAStringSet(path)
   sequences <- sequences[grepl(x = names(sequences),pattern = species)]
   nom = names(sequences)
@@ -19,8 +20,10 @@ select_gene <- function(species,path)
     mutate(gene = gsub(pattern = '\\(',replacement = "",x = gene))%>%
     mutate(gene = gsub(pattern = '\\)',replacement = "",x = gene))
   gene = unique(data$gene)
-  for (currentgene in gene) {
-    writeXStringSet(x = sequences[grepl(x = names(sequences),pattern = currentgene)],filepath = paste0(currentgene,".fasta"))
-  }
+  for (currentgene in gene)
+    {
+
+    writeXStringSet(x = sequences[grepl(x = names(sequences),pattern = currentgene)],filepath = paste0("virulence_",species,"/",currentgene,".fasta"))
+    }
 }
 
