@@ -4,7 +4,7 @@
 \alias{screen_Blast}
 \title{Screen within a reference sequence the presence of a querry sequence}
 \usage{
-screen_Blast(reference, querry, min.pc.ident, dir.out)
+screen_Blast(reference, querry, min.pc.ident, dir.out, prefix)
 }
 \arguments{
 \item{reference}{The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences}

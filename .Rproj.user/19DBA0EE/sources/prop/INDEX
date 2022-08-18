@@ -1,5 +1,7 @@
 ~%2FBureau%2FGenomics%2FDESCRIPTION="811B3D84"
+~%2FBureau%2FGenomics%2FNAMESPACE="77AB3ED7"
 ~%2FBureau%2FGenomics%2FR%2FDownload_vfdb.R="566996B5"
+~%2FBureau%2FGenomics%2FR%2Fcreate_envconda.R="3AE87070"
 ~%2FBureau%2FGenomics%2FR%2Fextract_gene.R="DA0C1371"
 ~%2FBureau%2FGenomics%2FR%2FscreenBlast.R="E1311FB2"
 ~%2FBureau%2FGenomics%2FR%2Fspecies_list.R="45501381"

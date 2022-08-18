@@ -14,15 +14,15 @@
 #' @import IRanges
 #' @export
 
-screen_Blast <- function (reference, querry,min.pc.ident,dir.out)
+screen_Blast <- function (reference, querry,min.pc.ident,dir.out,prefix)
 {
   try(unlink("temp", recursive = TRUE))
   dir.create("temp")
   dir.create("temp/dbblast")
   myarg <- paste0("-in ", reference, " -out temp/dbblast/db -dbtype nucl")
-  system2(command = "makeblastdb", args = myarg, stdout = F)
+  system2(command = paste0(prefix,"/bin/makeblastdb"), args = myarg, stdout = F)
   myarg <- paste0("-query ", querry, " -db temp/dbblast/db -out temp/blast.txt -num_threads 8 -num_alignments 10 -outfmt \"7 qacc bitscore qlen length pident qstart qend sacc sstart send \"")
-  system2(command = "blastn", args = myarg)
+  system2(command = paste0(prefix,"/bin/blastn"), args = myarg)
   blast <- try(read.table("temp/blast.txt", comment.char = "#"), silent = T)
   if (class(blast) == "data.frame")
   {

@@ -1,6 +1,8 @@
 #' Title
 #'
 #'
+#' @param path
+#'
 #' @import Biostrings dplyr
 #' @return
 #' @export

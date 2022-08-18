@@ -2,8 +2,8 @@
 
 export(Download_vfdb)
 export(create_envconda)
+export(extract_gene)
 export(screen_Blast)
-export(select_gene)
 export(species_list)
 import(Biostrings)
 import(GenomicRanges)

@@ -6,6 +6,9 @@
 \usage{
 species_list(path)
 }
+\arguments{
+\item{path}{}
+}
 \description{
 Title
 }
