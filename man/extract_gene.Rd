@@ -4,7 +4,10 @@
 \alias{extract_gene}
 \title{Title}
 \usage{
-extract_gene(species, path)
+extract_gene(species, path_vfdb, path_out)
+}
+\arguments{
+\item{species}{}
 }
 \description{
 Title

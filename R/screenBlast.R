@@ -6,7 +6,7 @@
 #' @param subject The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences
 #' @param querry The path of the querry sequence. he sequence should be a .fasta file including one or several sequences
 #' @param threshold the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence
-#' @param prefix the directory where Blastn is located
+#' @param path the directory where Blastn is located
 #'
 #' @return numeric value of the percentage of the reference sequence which is covered by the querry sequence.
 #' @import Biostrings
@@ -14,10 +14,10 @@
 #' @import IRanges
 #' @export
 
-screen_Blast <- function (subject, querry,threshold,prefix)
+screen_Blast <- function (subject, querry,threshold,path)
 {
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
-  system2(command = paste0(prefix,"/bin/blastn"), args = myarg)
+  system2(command = path, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
   if (class(blast) == "data.frame")
   {
