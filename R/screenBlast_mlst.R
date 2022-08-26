@@ -5,9 +5,8 @@
 #'
 #' @param subject The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences
 #' @param querry The path of the querry sequence. he sequence should be a .fasta file including one or several sequences
-#' @param threshold the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence
-#' @param path the directory where Blastn is located
 #' @param profile
+#' @param path_blastn
 #'
 #' @return numeric value of the percentage of the reference sequence which is covered by the querry sequence.
 #' @import Biostrings
@@ -16,19 +15,20 @@
 #' @import dplyr
 #' @export screen_Blast_mlst
 
-screen_Blast_mlst <- function (subject, querry,threshold,path,profile)
+screen_Blast_mlst <- function (subject, querry,path_blastn,profile)
 {
+  print(subject)
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
-  system2(command = path, args = myarg)
+  system2(command = path_blastn, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
   if (class(blast) == "data.frame")
   {
     colnames(blast) <- c( "querry_access", "querry_length", "alignment_lenght", "querry_start", "querry_end","pc_ident", "subject_access")
 
-    blast <- blast %>% filter(pc_ident>=threshold)
+    blast <- blast %>% filter(pc_ident==100)
 
     GR <- GRanges(seqnames = blast$querry_access,ranges = IRanges(start =blast$querry_start ,end = blast$querry_end))
-    GR_reduce <- reduce(GR)
+    GR_reduce <- disjoin(GR)
 
     coverage_df <- data_frame(querry_access = seqnames(GR_reduce)|>as.character(),cover_length = width(GR_reduce))
     blast = blast %>% select(querry_access,querry_length) %>%
@@ -38,14 +38,19 @@ screen_Blast_mlst <- function (subject, querry,threshold,path,profile)
       summarise(cover_length = sum(cover_length))%>%
       mutate(pc_coverage = round(100*cover_length/querry_length,1))%>%
       filter(pc_coverage==100)%>%
-      mutate(hit = unlist(strsplit(querry_access,"_"))[length(unlist(strsplit(querry_access,"_")))])%>%
-      mutate(querry_access = paste0(unlist(strsplit(querry_access,"_"))[-length(unlist(strsplit(querry_access,"_")))],collapse = "_"))
+      mutate(hit = as.integer(unlist(strsplit(querry_access,"_"))[length(unlist(strsplit(querry_access,"_")))]))%>%
+      mutate(querry_access = paste0(unlist(strsplit(querry_access,"_"))[-length(unlist(strsplit(querry_access,"_")))],collapse = "_"))%>%
+      select(querry_access,hit)%>%
+      pivot_wider(names_from = querry_access, values_from = hit)
 
+    if(length(profile)-1 == length(blast))
+    {
+      blast <- blast%>%
+        left_join(profile)
+    }
 
-    pc_coverage = blast$hit
-    names(pc_coverage) = blast$querry_access
-
-    return(pc_coverage)
+    return(blast)
   }
   else{stop("error : No hit with blast")}
 }
+

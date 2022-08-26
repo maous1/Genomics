@@ -5,6 +5,7 @@
 ~%2FBureau%2FGenomics%2FR%2Fdownload_vfdb.R="CA58053F"
 ~%2FBureau%2FGenomics%2FR%2Fextract_gene.R="DA0C1371"
 ~%2FBureau%2FGenomics%2FR%2FscreenBlast.R="E1311FB2"
+~%2FBureau%2FGenomics%2FR%2FscreenBlast_mlst.R="6266BF20"
 ~%2FBureau%2FGenomics%2FR%2Fspecies_list.R="45501381"
 ~%2FBureau%2FPathogenomics%2FDESCRIPTION="2C3E65C4"
 ~%2FBureau%2FPathogenomics%2FNAMESPACE="27FB078C"
