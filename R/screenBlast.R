@@ -12,6 +12,7 @@
 #' @import Biostrings
 #' @import GenomicRanges
 #' @import IRanges
+#' @import dplyr
 #' @export
 
 screen_Blast <- function (subject, querry,threshold,path)
@@ -28,10 +29,10 @@ screen_Blast <- function (subject, querry,threshold,path)
     GR <- GRanges(seqnames = blast$querry_access,ranges = IRanges(start =blast$querry_start ,end = blast$querry_end))
     GR_reduce <- reduce(GR)
 
-    coverage_df <- data_frame(querry_access = seqnames(GR_reduce)|>as.character(),cover_length = width(GR_reduce))
+    coverage_df <- tibble(querry_access = seqnames(GR_reduce)|>as.character(),cover_length = width(GR_reduce))
     blast = blast %>% select(querry_access,querry_length) %>%
       distinct() %>%
-      left_join(coverage_df) %>%
+      left_join(coverage_df,by ="querry_access") %>%
       group_by(querry_access,querry_length)%>%
       summarise(cover_length = sum(cover_length))%>%
       mutate(pc_coverage = round(100*cover_length/querry_length,1))

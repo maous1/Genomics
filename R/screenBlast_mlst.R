@@ -17,20 +17,20 @@
 
 screen_Blast_mlst <- function (subject, querry,path_blastn,profile)
 {
-  print(subject)
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
   system2(command = path_blastn, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
   if (class(blast) == "data.frame")
   {
+    file.remove("blast.txt")
     colnames(blast) <- c( "querry_access", "querry_length", "alignment_lenght", "querry_start", "querry_end","pc_ident", "subject_access")
 
     blast <- blast %>% filter(pc_ident==100)
 
     GR <- GRanges(seqnames = blast$querry_access,ranges = IRanges(start =blast$querry_start ,end = blast$querry_end))
-    GR_reduce <- disjoin(GR)
+    GR_disjoin <- disjoin(GR)
 
-    coverage_df <- data_frame(querry_access = seqnames(GR_reduce)|>as.character(),cover_length = width(GR_reduce))
+    coverage_df <- data_frame(querry_access = seqnames(GR_disjoin)|>as.character(),cover_length = width(GR_disjoin))
     blast = blast %>% select(querry_access,querry_length) %>%
       distinct() %>%
       left_join(coverage_df,by = "querry_access") %>%

@@ -1,7 +1,7 @@
 Package: Pathogenomics
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
       c(person("Jerome", "Ambroise", , "jerome.ambroise@uclouvain.be", role = c("aut", "cre")),
         person("Maxime", "Bonjean", , "m.bonjean@uclouvain.be", role = c("aut"))
@@ -16,7 +16,7 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends: R (>= 3.50)
-Imports: dplyr,reticulate,Biostrings,GenomicRanges,IRanges,R.utils
+Imports: dplyr,reticulate,Biostrings,GenomicRanges,IRanges,R.utils,tidyr
 Suggests: 
     rmarkdown,
     knitr
