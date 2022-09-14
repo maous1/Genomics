@@ -15,4 +15,7 @@ create_envconda <- function(prefix)
   conda_install(envname = paste0("./",prefix),packages = "blast",channel="bioconda",version="2.13.0")
   conda_install(envname = paste0("./",prefix),packages = "ncbi-amrfinderplus",forge = T,channel = "bioconda")
   system2(command = paste0(prefix,"/bin/amrfinder"),args = "-u")
+
+  message(paste0("path blastn is: ",prefix,"/bin/blastn"))
+  message(paste0("path blastn is: ",prefix,"/bin/amrfinder"))
 }

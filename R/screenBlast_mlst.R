@@ -15,8 +15,12 @@
 #' @import dplyr
 #' @export screen_Blast_mlst
 
-screen_Blast_mlst <- function (subject, querry,path_blastn,profile)
+screen_Blast_mlst <- function (subject, dir_querry,path_blastn,path_profile)
 {
+  profile <- read.table(file = path_profile,header = T)
+  querry  <- readDNAStringSet(dir_querry)
+  writeXStringSet(x = querry,filepath = "allgenes.fasta")
+  querry <- "allgenes.fasta"
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
   system2(command = path_blastn, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
