@@ -5,7 +5,7 @@
 #'
 #' @param subject The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences
 #' @param querry The path of the querry sequence. he sequence should be a .fasta file including one or several sequences
-#' @param threshold the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence
+#' @param pc_id_treshold the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence
 #' @param path the directory where Blastn is located
 #'
 #' @return numeric value of the percentage of the reference sequence which is covered by the querry sequence.
@@ -15,7 +15,7 @@
 #' @import dplyr
 #' @export
 
-screen_Blast <- function (subject, querry,threshold,path)
+screen_Blast <- function (subject, querry,pc_id_treshold,path)
 {
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
   system2(command = path, args = myarg)
@@ -24,7 +24,7 @@ screen_Blast <- function (subject, querry,threshold,path)
   {
     colnames(blast) <- c( "querry_access", "querry_length", "alignment_lenght", "querry_start", "querry_end","pc_ident", "subject_access")
 
-    blast <- blast %>% filter(pc_ident>threshold)
+    blast <- blast %>% filter(pc_ident>pc_id_treshold)
 
     GR <- GRanges(seqnames = blast$querry_access,ranges = IRanges(start =blast$querry_start ,end = blast$querry_end))
     GR_reduce <- reduce(GR)
