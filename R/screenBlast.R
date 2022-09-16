@@ -20,6 +20,7 @@ screen_Blast <- function (subject, querry,pc_id_treshold,path)
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
   system2(command = path, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
+  file.remove("blast.txt")
   if (class(blast) == "data.frame")
   {
     colnames(blast) <- c( "querry_access", "querry_length", "alignment_lenght", "querry_start", "querry_end","pc_ident", "subject_access")
