@@ -35,7 +35,7 @@ extract_gene <- function(species,path_vfdb,path_out)
     }
     allsequences = DNAStringSet(c(allsequences,currentsequences))
   }
-  path <- paste0(species,"genes.fasta")
+  path <- paste0(species,"_genes.fasta")
   path <- sub(pattern = " ",replacement = "_",x = path)
   writeXStringSet(x = allsequences,filepath = paste0(path_out,"/",path))
 }

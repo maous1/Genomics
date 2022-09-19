@@ -4,14 +4,14 @@
 \alias{screen_Blast}
 \title{Screen within a reference sequence the presence of a querry sequence}
 \usage{
-screen_Blast(subject, querry, threshold, path)
+screen_Blast(subject, querry, pc_id_treshold, path_blastn)
 }
 \arguments{
 \item{subject}{The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences}
 
 \item{querry}{The path of the querry sequence. he sequence should be a .fasta file including one or several sequences}
 
-\item{threshold}{the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence}
+\item{pc_id_treshold}{the minimum percentage of identity obtained with Blast that should be obtained in order to consider that the query match the reference sequence}
 
 \item{path}{the directory where Blastn is located}
 }

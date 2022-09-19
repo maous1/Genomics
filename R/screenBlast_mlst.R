@@ -55,7 +55,9 @@ screen_Blast_mlst <- function (subject, dir_querry,path_blastn,path_profile)
         left_join(profile,by = names(blast))
     }
 
-    return(blast)
+    blastvector = as.numeric(blast[1,])
+    names(blastvector) = colnames(blast)
+    return(blastvector)
   }
   else{stop("error : No hit with blast")}
 }

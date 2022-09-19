@@ -4,10 +4,12 @@
 \alias{amrfinder}
 \title{Title}
 \usage{
-amrfinder(path_fasta, organism, path_amrfinder, element)
+amrfinder(path_fasta, organism, path_amrfinder, element, path_database)
 }
 \arguments{
 \item{element}{}
+
+\item{path_database}{}
 }
 \description{
 Title

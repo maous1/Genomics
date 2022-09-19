@@ -4,14 +4,14 @@
 \alias{screen_Blast_mlst}
 \title{Screen within a reference sequence the presence of a querry sequence}
 \usage{
-screen_Blast_mlst(subject, querry, path_blastn, profile)
+screen_Blast_mlst(subject, dir_querry, path_blastn, path_profile)
 }
 \arguments{
 \item{subject}{The path of the reference sequence that you want to screen. The sequence should be a .fasta file including one or several sequences}
 
-\item{querry}{The path of the querry sequence. he sequence should be a .fasta file including one or several sequences}
-
 \item{path_blastn}{}
+
+\item{querry}{The path of the querry sequence. he sequence should be a .fasta file including one or several sequences}
 }
 \value{
 numeric value of the percentage of the reference sequence which is covered by the querry sequence.

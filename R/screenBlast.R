@@ -15,10 +15,10 @@
 #' @import dplyr
 #' @export
 
-screen_Blast <- function (subject, querry,pc_id_treshold,path)
+screen_Blast <- function (subject, querry,pc_id_treshold,path_blastn)
 {
   myarg <- paste0(" -subject ",subject," -query ",querry," -out blast.txt  -outfmt \"6 qacc qlen length qstart qend pident sacc \"")
-  system2(command = path, args = myarg)
+  system2(command = path_blastn, args = myarg)
   blast <- try(read.table("blast.txt"), silent = T)
   file.remove("blast.txt")
   if (class(blast) == "data.frame")
